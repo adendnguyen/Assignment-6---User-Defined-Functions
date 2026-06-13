@@ -3,6 +3,60 @@
 #include <iomanip>
 
 using namespace std;
+void mathSummary(double);
+double calcTax(double ,double);
+void printHeader(string);
+void displayResult(string, double);
+void convertTime(int, int&, int&);
+void countCalls();
+void displayBox(int);
+void displayBox(int, int);
+double calcShipping(double, double  = 1.50, double  = 5);
+
+int main()
+{
+    double income, rate, taxOwed;
+    int totalSeconds,minutes, seconds;
+
+    mathSummary(7.11);
+    mathSummary(4.2);
+
+    cout<< "Enter a gross income >> ";
+    cin >> income;
+
+    cout << "Enter a tax rate as a decimal >> ";
+    cin >> rate;
+
+   
+    taxOwed = calcTax(income, rate);
+    printHeader("COSC 1437 — Programming Fundamentals II");
+    displayResult("Tax Owed: $", taxOwed);
+
+    cout<<"Enter a number of seconds >> ";
+    cin >> totalSeconds;
+    convertTime(totalSeconds,minutes,seconds);
+    displayResult("Converted time in minutes: ", minutes);
+    displayResult("Converted time in remaining seconds: ", seconds);
+
+    countCalls();
+    countCalls();
+    countCalls();
+    countCalls();
+
+    displayBox(5);
+    displayBox(10,10);
+
+    double threeArgsShipping = calcShipping(20,2.3,10);
+    displayResult("Calculated shipping with three arguments passed: $", threeArgsShipping);
+
+    double twoArgsShipping = calcShipping(50,4.2);
+    displayResult("Calculated shipping with two arguments passed: $", twoArgsShipping);
+
+    double oneArgsShipping = calcShipping(12);
+    displayResult("Calculated shipping with one arguments passed: $", oneArgsShipping);
+
+    return 0;
+}
 
 /*
     Function Name: mathSummary
@@ -25,7 +79,7 @@ void mathSummary(double x)
     double ceiling = ceil(x);
     cout << "The ceiling of " << x << " is " << ceiling << endl;
    
-    double absolute = abs(x);
+    double absolute = fabs(x * -1);
     cout << "The absolute value of " << x << " is " << absolute << endl;
     cout << endl;
 }
@@ -118,7 +172,25 @@ void displayBox(int width)
         //width of box
         for( int j=0; j < width; j++)
         {
-            cout << "*";
+            //if first or last row
+            if(i == 0 || i == width-1)
+            {
+                 cout << "*";
+            }
+            else 
+            {
+                //first column
+                if(j == 0 || j == width-1)
+                {
+                    cout << "*";
+                }
+                else
+                {
+                    cout <<" ";
+                }
+                
+            }
+           
         }
         cout<<endl;
     }
@@ -139,7 +211,24 @@ void displayBox(int width, int height)
         //width of box
         for( int j=0; j < width; j++)
         {
-            cout << "*";
+           //if first or last row
+            if(i == 0 || i == height-1)
+            {
+                 cout << "*";
+            }
+            else 
+            {
+                //first column
+                if(j == 0 || j == width-1)
+                {
+                    cout << "*";
+                }
+                else
+                {
+                    cout <<" ";
+                }
+                
+            }
         }
         cout<<endl;
     }
@@ -152,59 +241,14 @@ void displayBox(int width, int height)
     Parameters: double weight, double ratePerPound, double baseFee
     Return Value: double
 */
-double calcShipping(double weight, double ratePerPound = 1.50, double baseFee = 5.00)
+double calcShipping(double weight, double ratePerPound, double baseFee)
 {
     double totalCost = baseFee + (weight*ratePerPound);
     return totalCost;
 }
 
 //function prototype
-double calcTax(double ,double);
 
-int main()
-{
-    double income, rate, taxOwed;
-    int totalSeconds,minutes, seconds;
-
-    mathSummary(7.11);
-    mathSummary(4.2);
-
-    cout<< "Enter a gross income >> ";
-    cin >> income;
-
-    cout << "Enter a tax rate as a decimal >> ";
-    cin >> rate;
-
-   
-    taxOwed = calcTax(income, rate);
-    printHeader("COSC 1437 — Programming Fundamentals II");
-    displayResult("Tax Owed: $", taxOwed);
-
-    cout<<"Enter a number of seconds >> ";
-    cin >> totalSeconds;
-    convertTime(totalSeconds,minutes,seconds);
-    displayResult("Converted time in minutes: ", minutes);
-    displayResult("Converted time in remaining seconds: ", seconds);
-
-    countCalls();
-    countCalls();
-    countCalls();
-    countCalls();
-
-    displayBox(5);
-    displayBox(10,10);
-
-    double threeArgsShipping = calcShipping(20,2.3,10);
-    displayResult("Calculated shipping with three arguments passed: $", threeArgsShipping);
-
-    double twoArgsShipping = calcShipping(50,4.2);
-    displayResult("Calculated shipping with two arguments passed: $", twoArgsShipping);
-
-    double oneArgsShipping = calcShipping(12);
-    displayResult("Calculated shipping with one arguments passed: $", oneArgsShipping);
-
-    return 0;
-}
 /*Test Run #1
     The square root of 7.11 is 2.66646
     7.11 to the third power is 359.425
@@ -240,20 +284,20 @@ int main()
     countCalls has been called 4 times 
 
     *****
-    *****
-    *****
-    *****
+    *   *
+    *   *
+    *   *
     *****
 
     **********
-    **********
-    **********
-    **********
-    **********
-    **********
-    **********
-    **********
-    **********
+    *        *
+    *        *
+    *        *
+    *        *
+    *        *
+    *        *
+    *        *
+    *        *
     **********
 
     Calculated shipping with three arguments passed: $56.00
@@ -298,20 +342,20 @@ int main()
     countCalls has been called 4 times 
 
     *****
-    *****
-    *****
-    *****
+    *   *
+    *   *
+    *   *
     *****
 
     **********
-    **********
-    **********
-    **********
-    **********
-    **********
-    **********
-    **********
-    **********
+    *        *
+    *        *
+    *        *
+    *        *
+    *        *
+    *        *
+    *        *
+    *        *
     **********
 
     Calculated shipping with three arguments passed: $56.00
